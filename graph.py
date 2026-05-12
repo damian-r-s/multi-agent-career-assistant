@@ -48,4 +48,4 @@ graph.add_edge("job_analyzer", "resume_strategist")
 graph.add_edge("resume_strategist", "content_refinement")
 graph.add_edge("content_refinement", END)
 
-agent = graph.build()
+agent = graph.compile()
