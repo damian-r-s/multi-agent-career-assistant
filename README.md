@@ -68,6 +68,7 @@ Unlike traditional agent frameworks, LangGraph provides:
 - Qwen2.5:7b model
 - Pydantic (structured state)
 - Requests (API calls)
+- Tavily (web search & content extraction)
 
 ---
 
@@ -102,7 +103,13 @@ Unlike traditional agent frameworks, LangGraph provides:
    # Pull the model
    ollama pull qwen2.5:7b
    ```
+Set up API keys (optional):**
+   ```bash
+   # For web search functionality
+   export TAVILY_API_KEY="your-tavily-api-key"
+   ```
 
+5. **
 4. **Verify setup:**
    ```bash
    python main.py
@@ -127,6 +134,14 @@ result = graph.agent.invoke(initial_state)
 
 print("Resume:", result['refined_output'])
 print("Interview Prep:", result['interview_prep'])
+```
+
+## With Job Posting URL
+
+```python
+initial_state = prepare_initial_state(
+    job_url="https://company.com/job-posting-url"
+)
 ```
 
 ## With GitHub Profile
