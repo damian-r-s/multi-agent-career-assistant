@@ -1,0 +1,65 @@
+Jordan Smith
+
+Senior Software Engineer
+
+Zurich, SwitzerlandEmail: jordan.smith@example.comPhone: +41 78 555 44 33GitHub: github.com/jordansmith
+
+Summary
+
+Senior Software Engineer with 10+ years of experience designing distributed systems, high‑performance backend services, and cloud‑native architectures. Known for owning projects end‑to‑end, driving technical strategy, and delivering production‑grade solutions at scale.
+
+Core Competencies
+
+Distributed Systems Architecture
+
+High‑Performance Backend Engineering
+
+Cloud Infrastructure (Azure, AWS)
+
+Data Pipelines & Streaming Systems
+
+Observability & Reliability Engineering
+
+Technical Leadership & Mentoring
+
+Professional Experience
+
+Senior Software Engineer — DataFlow Systems
+
+2020–Present
+
+Architected a distributed compute platform processing over 1B events per day.
+
+Introduced an observability stack (Prometheus, Grafana, OpenTelemetry) reducing MTTR by 55%.
+
+Led redesign of the core API layer, improving throughput by 3×.
+
+Collaborated with product and architecture teams to define long‑term technical strategy.
+
+Software Engineer — FinTech Labs
+
+2015–2020
+
+Built risk‑scoring microservices used by 200+ enterprise clients.
+
+Implemented CI/CD pipelines using GitHub Actions and Terraform.
+
+Optimized SQL queries, reducing report generation time from 12 minutes to 40 seconds.
+
+Improved system reliability through automated testing and performance profiling.
+
+Selected Projects
+
+Event‑Driven Credit Engine — Designed a scalable engine for real‑time credit decisions, integrating streaming data and low‑latency APIs.
+
+Cloud Cost Optimizer — Built automated tooling that analyzed cloud usage patterns and reduced operational spend by 22%.
+
+Telemetry Aggregation Service — Developed a high‑throughput service for collecting and analyzing system metrics across distributed environments.
+
+Education
+
+BSc in Computer Science — University of Zurich2015
+
+Technologies
+
+Python, Go, C#, SQL, Docker, Kubernetes, Kafka, Redis, PostgreSQL, Terraform, GitHub Actions, Azure, AWS

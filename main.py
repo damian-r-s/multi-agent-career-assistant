@@ -2,22 +2,14 @@ from state import AgentState
 from input_handler import prepare_initial_state
 import graph
 
-if __name__ == "__main__":
-    # Example inputs
-    # Option 1: Direct job posting text
-    job_posting = "We are looking for a software engineer with experience in Python, machine learning, and cloud computing."
-
-    # Option 2: Load from URL (requires TAVILY_API_KEY)
-    job_url = "https://example.com/job-posting"
-
-    # Option 3: Load from GitHub profile
-    github_username = None  # e.g., "damian-r-s"
-
-    # Option 4: Load from resume file
-    resume_path = None  # e.g., "resume.txt"
+if __name__ == "__main__":   
+    
+    job_url = "https://www.google.com/about/careers/applications/jobs/results/122028489434899142-senior-software-engineer-operations-research?location=Zurich%2C%20Switzerland"    
+    github_username = "damian-r-s"
+    resume_path = "test/example-resume.txt"
 
     initial_state = prepare_initial_state(        
-        job_url=job_url,  # Uncomment to use URL
+        job_url=job_url,
         github_username=github_username,
         resume_path=resume_path
     )
