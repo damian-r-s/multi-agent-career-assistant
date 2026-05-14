@@ -4,6 +4,16 @@
 
 This document describes the architecture of the Multi-Agent Career Assistant system.
 
+The system is deployed publicly at:
+
+👉 **https://multi-agent-career-assistant.onrender.com/**
+
+Production environment:
+- Render Cloud (Docker)
+- FastAPI backend
+- Static frontend served from the same container
+- External/local Ollama LLM
+
 ## 🧩 Component Architecture
 
 The system is built as a directed acyclic graph (DAG) of specialized AI agents that process information through multiple stages:

@@ -1,31 +1,39 @@
 # 🧠 Multi-Agent Career Assistant
 
-A production-style multi-agent AI system built with LangGraph and local LLMs (Ollama) that helps software engineers optimize their career path.
-
-The system analyzes job postings, evaluates candidate profiles, and generates personalized outputs such as:
-- Resume optimization
-- Skill gap analysis
-- Interview preparation
-- Career recommendations
+A production-grade, multi-agent AI system for job analysis, resume optimization, and interview preparation — now publicly available online.
 
 ---
 
-# 🚀 Key Features
+# 🚀 Live Deployment
 
-- 🧩 Multi-agent architecture using LangGraph
-- 🧠 Local LLM support (Ollama: Llama / Qwen / Mistral)
+The application is deployed and accessible here:
+
+👉 **https://multi-agent-career-assistant.onrender.com/**
+
+Production environment:
+- Render Cloud (Docker container)
+- FastAPI backend + static frontend
+- Multi-agent pipeline orchestrated with LangGraph
+- Optional integration with local or remote Ollama LLM
+
+---
+
+# ✨ Key Features
+
+- 🧩 Multi-agent architecture (LangGraph DAG)
+- 🧠 LLM-ready design (Ollama / OpenAI compatible)
 - 📄 Job posting analysis
-- 👤 Candidate profile extraction (GitHub + resume)
-- ✍️ Resume tailoring (ATS optimization)
-- 🎯 Interview question generation
+- 👤 GitHub profile extraction
+- ✍️ Resume optimization (ATS-focused)
+- 🎯 Interview preparation
 - 📊 Skill gap analysis
-- 🔄 State-based workflow execution
+- 🌐 REST API (FastAPI)
+- 🐳 Dockerized deployment
+- ☁️ Cloud hosting on Render
 
 ---
 
 # 🏗️ System Architecture
-
-The system is built as a directed graph of specialized AI agents with parallel execution:
 
 ```mermaid
 graph TD
@@ -34,238 +42,135 @@ graph TD
     B --> D[Content Refinement]
     C --> D
     D --> E[Interview Prep]
-    E --> F[END]
-```
-
-**Agents:**
-- **Job Analyzer**: Extracts key skills and requirements from job postings
-- **Profile Builder**: Builds professional profiles using GitHub data and job analysis
-- **Resume Strategist**: Creates tailored resume drafts based on job requirements
-- **Content Refinement**: Improves resume clarity, structure, and professionalism
-- **Interview Prep**: Generates interview questions and preparation tips
-
-Each agent operates on a shared Pydantic state object and contributes to the final output.
-
----
-
-# 🧠 Why LangGraph?
-
-Unlike traditional agent frameworks, LangGraph provides:
-
-- Explicit control over execution flow
-- Stateful multi-step reasoning
-- Deterministic orchestration
-- Production-grade agent pipelines
-
----
-
-# 🛠️ Tech Stack
-
-- Python 3.11
-- LangGraph
-- LangChain
-- Ollama (local LLM runtime)
-- Qwen2.5:7b model
-- Pydantic (structured state)
-- Requests (API calls)
-- Tavily (web search & content extraction)
-
----
-
-# 📦 Installation
-
-## Prerequisites
-
-- Python 3.11+
-- Ollama installed and running
-- Qwen2.5:7b model downloaded
-- Tavily API key (optional, for web search)
-
-## Setup
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/damian-r-s/multi-agent-career-assistant.git
-   cd multi-agent-career-assistant
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   pip install -r requirements-dev.txt  # for development
-   ```
-
-3. **Install Ollama and model:**
-   ```bash
-   # Install Ollama (if not already)
-   curl -fsSL https://ollama.ai/install.sh | sh
-
-   # Pull the model
-   ollama pull qwen2.5:7b
-   ```
-
-4. **Set up API keys (optional):**
-   ```bash
-   # For web search functionality
-   export TAVILY_API_KEY="your-tavily-api-key"
-   ```
-
-5. **Verify setup:**
-   ```bash
-   python main.py
-   ```
-
----
-
-# 🚀 Usage
-
-## Basic Usage
-
-```python
-from input_handler import prepare_initial_state
-import graph
-
-# Prepare input
-job_posting = "Senior Python Engineer with ML experience..."
-initial_state = prepare_initial_state(job_posting)
-
-# Run the system
-result = graph.agent.invoke(initial_state)
-
-print("Resume:", result['refined_output'])
-print("Interview Prep:", result['interview_prep'])
-```
-
-## With Job Posting URL
-
-```python
-initial_state = prepare_initial_state(
-    job_url="https://company.com/job-posting-url"
-)
-```
-
-## With GitHub Profile
-
-```python
-initial_state = prepare_initial_state(
-    job_posting="...",
-    github_username="your-github-username"
-)
-```
-
-## With Resume File
-
-```python
-initial_state = prepare_initial_state(
-    job_posting="...",
-    resume_path="/path/to/resume.txt"
-)
-```
-
-## Command Line
-
-```bash
-python main.py
+    E --> F[API Response]
 ```
 
 ---
 
-# 🧪 Development & Testing
+# 🌐 Production API Base URL
 
-## Running Tests
+All API calls should target:
 
-```bash
-# Install dev dependencies
-pip install -r requirements-dev.txt
-
-# Run tests
-python -m pytest test/
+```
+https://multi-agent-career-assistant.onrender.com
 ```
 
-## Adding New Agents
+Endpoints:
 
-1. Create a new file in `agents/` directory
-2. Implement the agent function that takes `state` and returns a dict
-3. Add the agent to `graph.py`:
-   - Import the function
-   - Add node: `graph.add_node("agent_name", agent_function)`
-   - Add edges: `graph.add_edge("previous_node", "agent_name")`
-
-## Code Quality
-
-- Use Pydantic for state validation
-- Follow Python type hints
-- Keep agents modular and focused on single responsibilities
+| Endpoint | Method | Description |
+|---------|--------|-------------|
+| `/api/analyze` | POST | Full multi-agent job analysis |
+| `/health` | GET | Health check |
 
 ---
 
-# 📁 Project Structure
+# ⚠️ Notes About the Hosted Version
+
+- Render free tier may introduce **cold starts** (5–10 seconds).
+- Ollama **cannot run inside Render** — use local or remote LLM.
+- Tavily API key is required for job URL extraction.
+- GitHub API rate limits may apply.
+
+---
+
+# 📂 Directory Structure
 
 ```
 multi-agent-career-assistant/
-├── src/                          # All source code
-│   ├── __init__.py
-│   ├── state.py                  # Pydantic state model
-│   ├── llm.py                    # LLM configuration (Ollama)
-│   ├── graph.py                  # LangGraph definition
-│   ├── input_handler.py          # Input processing
-│   ├── agents/                   # Individual agent implementations
-│   │   ├── job_analyzer.py
-│   │   ├── profile_builder.py
-│   │   ├── resume_strategist.py
-│   │   ├── content_refinement.py
-│   │   └── interview_prep.py
-│   └── tools/                    # Utility tools
-│       ├── file_reader.py
-│       ├── github_api.py
-│       └── job_tavil_client.py
-├── static/                       # Frontend SPA files
-│   ├── index.html                # Main HTML page
-│   ├── style.css                 # Styling
-│   └── script.js                 # JavaScript logic
-├── test/                         # Tests and test data
-│   ├── example-resume.txt
-│   └── test_tools.py
-├── docs/                         # Documentation
-│   ├── WEB_UI_GUIDE.md           # Web UI setup guide
-│   └── ARCHITECTURE.md           # System architecture
-├── app.py                        # FastAPI web server
-├── main.py                       # CLI entry point
-├── requirements.txt              # Python dependencies
-├── requirements-dev.txt          # Development dependencies
-├── LICENSE
-└── README.md
+│
+├── src/
+│   ├── state.py
+│   ├── llm.py
+│   ├── graph.py
+│   ├── input_handler.py
+│   ├── agents/
+│   └── tools/
+│
+├── static/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+│
+├── app.py
+├── main.py
+├── requirements.txt
+├── README.md
+└── LICENSE
 ```
 
 ---
 
-# 📚 Documentation
+# 🔌 API Usage Examples
 
-- [**WEB_UI_GUIDE.md**](docs/WEB_UI_GUIDE.md) - Complete guide for setting up and using the web interface
-- [**ARCHITECTURE.md**](docs/ARCHITECTURE.md) - System design, data flow, and extensibility
+### cURL
+
+```bash
+curl -X POST https://multi-agent-career-assistant.onrender.com/api/analyze \
+  -F "job_url=https://example.com/job" \
+  -F "github_username=yourname"
+```
+
+### Python
+
+```python
+import requests
+
+data = {
+    "job_url": "https://example.com/job",
+    "github_username": "yourname"
+}
+
+response = requests.post(
+    "https://multi-agent-career-assistant.onrender.com/api/analyze",
+    data=data
+)
+
+print(response.json())
+```
 
 ---
 
-# 🤝 Contributing
+# 🛠️ Local Development (Optional)
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+### Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Start Ollama
+
+```bash
+ollama serve
+```
+
+### Run FastAPI
+
+```bash
+uvicorn app:app --reload --host 0.0.0.0 --port 8000
+```
+
+---
+
+# 📦 Deployment (Render)
+
+The production deployment uses:
+
+- Dockerfile
+- Render Blueprint
+- Single-container deployment
 
 ---
 
-# 📄 License
+# 📈 Future Enhancements
 
-MIT License - see LICENSE file for details
-
----
-
-# 🙏 Acknowledgments
-
-- LangGraph for the agent orchestration framework
-- Ollama for local LLM support
-- Qwen team for the excellent model
+- Authentication & user accounts
+- PDF/DOCX export
+- Real-time WebSocket updates
+- Database for history tracking
 
 ---
+
+# 📜 License
+
+MIT License
