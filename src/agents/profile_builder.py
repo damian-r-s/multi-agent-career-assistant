@@ -1,4 +1,4 @@
-from llm import llm
+from src.llm import llm
 
 def profile_builder(state):
     print("Thinking - Profile Builder")

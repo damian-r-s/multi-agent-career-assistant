@@ -1,4 +1,4 @@
-from llm import llm
+from src.llm import llm
 
 def resume_strategist(state):
     print("Thinking - Resume Strategist")

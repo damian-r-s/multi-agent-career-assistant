@@ -1,4 +1,4 @@
-from llm import llm
+from src.llm import llm
 
 def job_analyzer(state):
     print("Thinking - Job Analyzer")

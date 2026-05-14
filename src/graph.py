@@ -1,11 +1,11 @@
 from langgraph.graph import StateGraph, END
-from llm import llm
-from state import AgentState
-from agents.job_analyzer import job_analyzer
-from agents.profile_builder import profile_builder
-from agents.resume_strategist import resume_strategist
-from agents.content_refinement import content_refinement
-from agents.interview_prep import interview_prep
+from src.llm import llm
+from src.state import AgentState
+from src.agents.job_analyzer import job_analyzer
+from src.agents.profile_builder import profile_builder
+from src.agents.resume_strategist import resume_strategist
+from src.agents.content_refinement import content_refinement
+from src.agents.interview_prep import interview_prep
 
 graph = StateGraph(AgentState)
 graph.add_node("job_analyzer", job_analyzer)

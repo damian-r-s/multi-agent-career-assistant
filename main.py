@@ -1,6 +1,6 @@
-from state import AgentState
-from input_handler import prepare_initial_state
-import graph
+from src.state import AgentState
+from src.input_handler import prepare_initial_state
+from src import graph
 
 if __name__ == "__main__":   
     
