@@ -1,12 +1,12 @@
 import os
 
-class JobsClient:
+class JobsReaderClient:
     _client = None  # private lazy-loaded singleton
 
     @staticmethod
     def _get_tavily_client():
         """Private: initialize Tavily client lazily."""
-        if JobsClient._client is None:
+        if JobsReaderClient._client is None:
             api_key = os.getenv("TAVILY_API_KEY")
             if not api_key:
                 raise ValueError(
@@ -22,15 +22,15 @@ class JobsClient:
                     "Install it with 'pip install tavily-python'."
                 ) from exc
 
-            JobsClient._client = TavilyClient(api_key=api_key)
+            JobsReaderClient._client = TavilyClient(api_key=api_key)
 
-        return JobsClient._client
+        return JobsReaderClient._client
 
     @staticmethod
     def load_url_content(url):
         """Load and extract content from URL using Tavily."""
         try:
-            tavily_client = JobsClient._get_tavily_client()
+            tavily_client = JobsReaderClient._get_tavily_client()
             response = tavily_client.extract(urls=url, format="text")
 
             results = response.get("results", [])
@@ -46,14 +46,14 @@ class JobsClient:
     def search_and_extract(query, max_results=3):
         """Search for information and extract content from top results."""
         try:
-            tavily_client = JobsClient._get_tavily_client()
+            tavily_client = JobsReaderClient._get_tavily_client()
             search_results = tavily_client.search(query=query, max_results=max_results)
 
             contents = []
             for result in search_results.get("results", []):
                 url = result.get("url")
                 if url:
-                    content = JobsClient.load_url_content(url)
+                    content = JobsReaderClient.load_url_content(url)
                     contents.append({
                         "url": url,
                         "title": result.get("title", ""),

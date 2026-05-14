@@ -1,14 +1,14 @@
 from src.state import AgentState
 from src.tools.file_reader import CvFileReader
 from src.tools.github_api import GitHubClient
-from src.tools.job_client import JobsClient
+from src.tools.job_client import JobsReaderClient
 
 def prepare_initial_state(job_url=None, github_username=None, resume_path=None):
     state = AgentState()
 
     if job_url:
         print(f"Loading job posting from URL: {job_url}")
-        job_content = JobsClient.load_url_content(job_url)
+        job_content = JobsReaderClient.load_url_content(job_url)
         state.job_posting = job_content
             
     if github_username:
