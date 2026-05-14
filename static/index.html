@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Your Career Assistant - AI-Powered Job Analysis</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Your Career Assistant</h1>
+            <p class="subtitle">AI-powered job analysis</p>
+        </header>
+
+        <div class="main-content">
+            <div class="input-section">
+                <form id="analysisForm" enctype="multipart/form-data">
+                    <fieldset>
+                        <legend>Job Posting & Profile Information</legend>
+
+                        <div class="form-group">
+                            <label for="jobUrl">
+                                <span class="required">*</span> Job Posting URL
+                            </label>
+                            <input 
+                                type="url" 
+                                id="jobUrl" 
+                                name="job_url" 
+                                placeholder="https://company.com/careers/job-posting"
+                                required
+                            >
+                            <small>Enter the URL of the job posting you want to analyze</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="githubUsername">GitHub Username</label>
+                            <input 
+                                type="text" 
+                                id="githubUsername" 
+                                name="github_username" 
+                                placeholder="your-github-username"
+                            >
+                            <small>Optional: Your GitHub profile will be analyzed for skills and projects</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="resumeFile">
+                                <span
+                                Resume File
+                            </label>
+                            <div class="file-input-wrapper">
+                                <input 
+                                    type="file" 
+                                    id="resumeFile" 
+                                    name="resume_file" 
+                                    accept=".txt,.pdf,.doc,.docx"
+                                >
+                                <span class="file-placeholder">Choose a file or drag and drop</span>
+                            </div>
+                            <small>Optional: Upload your resume (TXT, PDF, DOC, DOCX)</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <span class="btn-text">Analyze</span>
+                            <span class="spinner hidden"></span>
+                        </button>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="results-section hidden" id="resultsSection">
+                <button class="btn-close" onclick="resetForm()">✕</button>
+
+                <div class="results-tabs">
+                    <button class="tab-btn active" data-tab="analysis">Job Analysis</button>
+                    <button class="tab-btn" data-tab="profile">Profile Data</button>
+                    <button class="tab-btn" data-tab="resume">Resume Draft</button>
+                    <button class="tab-btn" data-tab="refined">Refined Resume</button>
+                    <button class="tab-btn" data-tab="interview">Interview Prep</button>
+                </div>
+
+                <div class="results-content">
+                    <div class="tab-content active" id="analysis-tab">
+                        <h2>📊 Job Analysis</h2>
+                        <div id="analysisOutput" class="output-box"></div>
+                    </div>
+
+                    <div class="tab-content" id="profile-tab">
+                        <h2>👤 Profile Data</h2>
+                        <div id="profileOutput" class="output-box"></div>
+                    </div>
+
+                    <div class="tab-content" id="resume-tab">
+                        <h2>📝 Resume Draft</h2>
+                        <div id="resumeOutput" class="output-box"></div>
+                    </div>
+
+                    <div class="tab-content" id="refined-tab">
+                        <h2>✨ Refined Resume</h2>
+                        <div id="refinedOutput" class="output-box"></div>
+                    </div>
+
+                    <div class="tab-content" id="interview-tab">
+                        <h2>🎤 Interview Preparation</h2>
+                        <div id="interviewOutput" class="output-box"></div>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button class="btn btn-secondary" onclick="copyToClipboard('refinedOutput')">
+                        📋 Copy Resume
+                    </button>
+                    <button class="btn btn-secondary" onclick="downloadResults()">
+                        📥 Download All
+                    </button>
+                </div>
+            </div>
+
+            <div class="error-message hidden" id="errorMessage"></div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 class AgentState(BaseModel):
-    job_posting: str = Field(description="The job posting text to analyze")
+    job_posting: Optional[str] = Field(default=None, description="The job posting text to analyze")
     github_profile: Optional[str] = Field(default=None, description="GitHub profile URL or data")
     resume_file: Optional[str] = Field(default=None, description="Path to resume file")
     analysis: Optional[str] = Field(default=None, description="Job analysis output")

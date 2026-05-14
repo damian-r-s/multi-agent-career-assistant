@@ -4,7 +4,7 @@ from src import graph
 
 if __name__ == "__main__":   
     
-    job_url = "https://www.google.com/about/careers/applications/jobs/results/122028489434899142-senior-software-engineer-operations-research?location=Zurich%2C%20Switzerland"    
+    job_url = "https://www.google.com/about/careers/applications/jobs/results/122028489434899142-senior-software-engineer-operations-research?location=Zurich%2C%20Switzerland"
     github_username = "damian-r-s"
     resume_path = "test/example-resume.txt"
 

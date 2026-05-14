@@ -203,29 +203,46 @@ python -m pytest test/
 
 ```
 multi-agent-career-assistant/
-├── agents/                    # Individual agent implementations
-│   ├── content_refinement.py
-│   ├── interview_prep.py
-│   ├── job_analyzer.py
-│   ├── profile_builder.py
-│   └── resume_strategist.py
-├── tools/                     # Utility tools
-│   ├── file_reader.py
-│   ├── github_api.py
-│   └── job_tavil_client.py
-├── test/                      # Tests and test data
+├── src/                          # All source code
+│   ├── __init__.py
+│   ├── state.py                  # Pydantic state model
+│   ├── llm.py                    # LLM configuration (Ollama)
+│   ├── graph.py                  # LangGraph definition
+│   ├── input_handler.py          # Input processing
+│   ├── agents/                   # Individual agent implementations
+│   │   ├── job_analyzer.py
+│   │   ├── profile_builder.py
+│   │   ├── resume_strategist.py
+│   │   ├── content_refinement.py
+│   │   └── interview_prep.py
+│   └── tools/                    # Utility tools
+│       ├── file_reader.py
+│       ├── github_api.py
+│       └── job_tavil_client.py
+├── static/                       # Frontend SPA files
+│   ├── index.html                # Main HTML page
+│   ├── style.css                 # Styling
+│   └── script.js                 # JavaScript logic
+├── test/                         # Tests and test data
 │   ├── example-resume.txt
 │   └── test_tools.py
-├── graph.py                   # Main graph definition
-├── input_handler.py           # Input processing
-├── llm.py                     # LLM configuration
-├── main.py                    # Entry point
-├── state.py                   # Pydantic state model
-├── requirements.txt           # Python dependencies
-├── requirements-dev.txt       # Development dependencies
+├── docs/                         # Documentation
+│   ├── WEB_UI_GUIDE.md           # Web UI setup guide
+│   └── ARCHITECTURE.md           # System architecture
+├── app.py                        # FastAPI web server
+├── main.py                       # CLI entry point
+├── requirements.txt              # Python dependencies
+├── requirements-dev.txt          # Development dependencies
 ├── LICENSE
 └── README.md
 ```
+
+---
+
+# 📚 Documentation
+
+- [**WEB_UI_GUIDE.md**](docs/WEB_UI_GUIDE.md) - Complete guide for setting up and using the web interface
+- [**ARCHITECTURE.md**](docs/ARCHITECTURE.md) - System design, data flow, and extensibility
 
 ---
 
