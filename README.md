@@ -76,10 +76,10 @@ Unlike traditional agent frameworks, LangGraph provides:
 
 ## Prerequisites
 
-- Fedora 44 (or similar Linux distro)
-- Micromamba (conda alternative)
+- Python 3.11+
 - Ollama installed and running
 - Qwen2.5:7b model downloaded
+- Tavily API key (optional, for web search)
 
 ## Setup
 
@@ -89,10 +89,10 @@ Unlike traditional agent frameworks, LangGraph provides:
    cd multi-agent-career-assistant
    ```
 
-2. **Create environment:**
+2. **Install dependencies:**
    ```bash
-   micromamba create -f environment.yml
-   micromamba activate multi-agent-career-assistant
+   pip install -r requirements.txt
+   pip install -r requirements-dev.txt  # for development
    ```
 
 3. **Install Ollama and model:**
@@ -103,14 +103,14 @@ Unlike traditional agent frameworks, LangGraph provides:
    # Pull the model
    ollama pull qwen2.5:7b
    ```
-Set up API keys (optional):**
+
+4. **Set up API keys (optional):**
    ```bash
    # For web search functionality
    export TAVILY_API_KEY="your-tavily-api-key"
    ```
 
-5. **
-4. **Verify setup:**
+5. **Verify setup:**
    ```bash
    python main.py
    ```
@@ -165,9 +165,37 @@ initial_state = prepare_initial_state(
 ## Command Line
 
 ```bash
-micromamba activate multi-agent-career-assistant
 python main.py
 ```
+
+---
+
+# 🧪 Development & Testing
+
+## Running Tests
+
+```bash
+# Install dev dependencies
+pip install -r requirements-dev.txt
+
+# Run tests
+python -m pytest test/
+```
+
+## Adding New Agents
+
+1. Create a new file in `agents/` directory
+2. Implement the agent function that takes `state` and returns a dict
+3. Add the agent to `graph.py`:
+   - Import the function
+   - Add node: `graph.add_node("agent_name", agent_function)`
+   - Add edges: `graph.add_edge("previous_node", "agent_name")`
+
+## Code Quality
+
+- Use Pydantic for state validation
+- Follow Python type hints
+- Keep agents modular and focused on single responsibilities
 
 ---
 
@@ -176,22 +204,26 @@ python main.py
 ```
 multi-agent-career-assistant/
 ├── agents/                    # Individual agent implementations
+│   ├── content_refinement.py
+│   ├── interview_prep.py
 │   ├── job_analyzer.py
 │   ├── profile_builder.py
-│   ├── resume_strategist.py
-│   ├── content_refinement.py
-│   └── interview_prep.py
+│   └── resume_strategist.py
 ├── tools/                     # Utility tools
 │   ├── file_reader.py
-│   └── github_api.py
-├── prompts/                   # Agent prompts (future)
-├── state/                     # State definitions
-├── graphs/                    # Graph configurations (future)
-├── main.py                    # Entry point
+│   ├── github_api.py
+│   └── job_tavil_client.py
+├── test/                      # Tests and test data
+│   ├── example-resume.txt
+│   └── test_tools.py
 ├── graph.py                   # Main graph definition
-├── state.py                   # Pydantic state model
 ├── input_handler.py           # Input processing
-├── environment.yml            # Dependencies
+├── llm.py                     # LLM configuration
+├── main.py                    # Entry point
+├── state.py                   # Pydantic state model
+├── requirements.txt           # Python dependencies
+├── requirements-dev.txt       # Development dependencies
+├── LICENSE
 └── README.md
 ```
 
