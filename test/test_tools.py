@@ -1,7 +1,7 @@
 import os
 from unittest.mock import Mock, patch
 
-from tools import file_reader, github_api, tavily_client
+from tools import file_reader, github_api, job_description_client
 
 def test_read_file_existing(tmp_path):
     sample_file = tmp_path / "sample.txt"

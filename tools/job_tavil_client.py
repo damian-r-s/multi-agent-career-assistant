@@ -7,17 +7,20 @@ client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
 def load_url_content(url):
     """
-    Load and extract content from a URL Tavily..
-
-    Args:
-        url (str): The URL to extract content from
-
-    Returns:
-        str: Extracted content from the URL
+    Load and extract content from URL using Tavily.
     """
+
     try:
-        response = client.extract(url=url)
-        return response.get('content', 'No content extracted')
+        response = client.extract(
+            urls=url,
+            format="text"
+        )
+        results = response.get("results", [])
+        if not results:
+            return "No results returned"
+
+        return results[0].get("raw_content", "No content extracted")
+
     except Exception as e:
         return f"Error loading URL content: {str(e)}"
 
