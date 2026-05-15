@@ -4,67 +4,43 @@ def content_refinement(state):
     print("Content Refinement Agent")
 
     prompt = f"""
-You are an elite resume writer, senior technical recruiter, and career coach.
+You are a senior resume writer and technical recruiter.
 
-Your task is to refine and optimize the candidate’s resume for the target job posting.
+Refine the resume for the target job.
 
-========================
-TARGET JOB ANALYSIS
-========================
+================
+JOB ANALYSIS
+================
 {state.analysis}
 
-========================
-CURRENT RESUME DRAFT
-========================
+================
+RESUME DRAFT
+================
 {state.resume_draft}
 
-========================
-STRICT RULES
-========================
+TASK:
+Rewrite the resume to improve clarity, structure, and impact while strictly preserving truth.
 
-1. TRUTHFULNESS (HARD CONSTRAINT)
-- Do NOT invent or hallucinate experience, skills, projects, or metrics.
-- Only rewrite and improve existing content.
+RULES:
+- Do NOT invent or add new experience, skills, or metrics.
+- Improve wording, professionalism, and technical accuracy.
+- Tailor content to the job (keywords, relevance, ATS optimization without stuffing).
+- Emphasize architecture, scalability, leadership, and system design where relevant.
 
-2. IMPROVEMENT GOALS
-- Improve clarity, grammar, structure, and professionalism.
-- Convert weak bullets into strong achievement-focused statements.
-- Improve technical credibility and seniority level (without adding false claims).
-
-3. ATS OPTIMIZATION
-- Naturally integrate relevant keywords from job analysis.
-- Do NOT keyword-stuff.
-- Use industry-standard terminology (Cloud, Distributed Systems, DevOps, AI/ML, etc. when relevant).
-
-4. TAILORING
-- Prioritize experience relevant to the target role.
-- Emphasize architecture, scalability, leadership, and system design where applicable.
-
-5. FORMATTING (VERY IMPORTANT)
-Return a resume in STRICT Markdown format with:
-
+FORMAT (STRICT Markdown):
 - Name + Title
 - Contact Info
 - Summary
 - Skills
-- Experience
-- Projects (if present)
+- Experience (bullet points, improved impact wording)
+- Projects (if any)
 - Education
-- Optional: Certifications
+- Certifications (optional)
 
-Each experience entry must use bullet points.
-
-6. OUTPUT CONSTRAINT (CRITICAL)
-- Output ONLY the final resume in Markdown.
-- No explanations.
-- No commentary.
-- No preface like "Here is your resume".
-
-========================
-FINAL OUTPUT
-========================
+OUTPUT RULES:
+- Output ONLY the final resume in Markdown
+- No explanations or commentary
 """
-
     response = llm.invoke(prompt)
 
     return {"refined_output": response}

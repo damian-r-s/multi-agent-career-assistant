@@ -4,11 +4,9 @@ def interview_prep(state):
     print("Thinking - Interview Prep Agent")
 
     prompt = f"""
-You are an expert technical recruiter, hiring manager, and interview coach.
+You are a technical recruiter and interview coach.
 
-Your task is to prepare a comprehensive interview preparation guide tailored specifically to the candidate and the target job posting.
-
-Use the following inputs:
+Create a tailored interview preparation guide based on:
 
 JOB POSTING:
 {state.job_posting}
@@ -19,85 +17,51 @@ JOB ANALYSIS:
 REFINED RESUME:
 {state.refined_output}
 
-Generate a structured interview preparation report with the following sections:
+Return a structured report with:
 
 1. Job Summary
-- Briefly summarize the role and its key responsibilities.
-- Identify the most important technical and soft skills required.
+- Key responsibilities
+- Required technical + soft skills
 
-2. Candidate Match Analysis
-- Explain why the candidate is a strong fit for the role.
-- Highlight strengths aligned with the position.
-- Identify potential weaknesses or missing experience that could be questioned during the interview.
+2. Candidate Match
+- Why candidate fits
+- Key strengths
+- Possible gaps / risks
 
-3. Technical Interview Questions
-Generate:
-- 10 beginner-level questions
-- 10 intermediate-level questions
-- 10 advanced-level questions
+3. Technical Questions
+- 5 beginner
+- 5 intermediate
+- 5 advanced
 
-Requirements:
-- Questions must be highly relevant to the technologies, architecture, and responsibilities mentioned in the job posting.
-- Include questions related to system design, scalability, APIs, cloud, DevOps, security, testing, databases, and software engineering best practices when applicable.
-- Include behavioral and problem-solving aspects where appropriate.
+For each question include:
+- question
+- why asked
+- key points of good answer
 
-For each question provide:
-- The question
-- Why the interviewer asks it
-- What a strong answer should include
-- Example answer points
+Focus on system design, APIs, cloud, DevOps, databases, and core engineering concepts when relevant.
 
-4. Behavioral Interview Questions
-Generate 10 behavioral questions using STAR methodology principles.
+4. Behavioral Questions
+- 5 STAR-based questions
+For each:
+- what is evaluated
+- how to answer well
 
-For each question provide:
-- What the interviewer evaluates
-- Tips for answering effectively
-- Example structure for the response
+5. System Design (if relevant)
+- 3 scenarios
+- key topics (scalability, reliability, tradeoffs)
 
-5. System Design / Architecture Preparation
-If relevant to the role:
-- Generate 5 realistic system design interview scenarios.
-- Explain what topics the candidate should discuss.
-- Include scalability, reliability, observability, security, distributed systems, and tradeoffs where relevant.
+6. Resume Deep Dive
+- 5 questions based on candidate experience (projects, decisions, tradeoffs, challenges)
 
-6. Coding Interview Preparation
-If relevant:
-- List likely coding interview topics.
-- Recommend algorithms, data structures, or coding patterns to review.
-- Mention common mistakes candidates make.
+7. Final Tips
+- key strengths to highlight
+- weaknesses framing
+- 24h checklist
 
-7. Resume Deep-Dive Questions
-Generate questions specifically based on the candidate's resume and experience.
-Focus on:
-- Previous projects
-- Technical decisions
-- Leadership
-- Tradeoffs
-- Challenges
-- Achievements
-- Production incidents
-- Performance optimization
-- Collaboration
-
-8. Interview Strategy
-Provide:
-- Key talking points the candidate should emphasize
-- How to present strengths confidently
-- How to address weaknesses professionally
-- Tips for remote interviews
-- Tips for salary discussions
-- Questions the candidate should ask the interviewer
-
-9. Final Preparation Checklist
-Create a concise checklist for the final 24 hours before the interview.
-
-Formatting requirements:
-- Use clear headings
-- Use bullet points
-- Make the content practical and specific
-- Avoid generic advice
-- Tailor everything to the provided job posting and resume
+Rules:
+- Be concise
+- Avoid repetition
+- Focus on practical interview readiness
 """
     response = llm.invoke(prompt)
 

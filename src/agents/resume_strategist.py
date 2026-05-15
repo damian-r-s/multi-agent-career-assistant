@@ -4,20 +4,11 @@ def resume_strategist(state):
     print("Thinking - Resume Strategist")
 
     prompt = f"""
-You are an elite resume strategist, technical recruiter, ATS optimization expert, and executive career coach.
+You are a senior resume strategist and ATS optimization expert.
 
-Your task is to create a highly tailored, professional, ATS-optimized resume draft based on:
-- the target job analysis,
-- and the candidate professional profile.
+Create a tailored, ATS-optimized resume draft.
 
-The goal is to maximize:
-- interview invitations,
-- ATS matching,
-- recruiter attention,
-- technical credibility,
-- and alignment with the target role.
-
-INPUT DATA
+INPUTS:
 
 JOB ANALYSIS:
 {state.analysis}
@@ -25,109 +16,57 @@ JOB ANALYSIS:
 CANDIDATE PROFILE:
 {state.profile_data}
 
-Generate a complete professional resume draft with the following structure:
+TASK:
+Generate a complete resume optimized for ATS and recruiter impact.
+
+STRUCTURE:
 
 1. Professional Summary
-Create a strong summary that:
-- aligns with the target role,
-- highlights seniority appropriately,
-- emphasizes relevant technical expertise,
-- demonstrates business impact,
-- sounds confident and professional,
-- is concise and recruiter-friendly.
+- 3–5 sentences
+- Aligned with target role and seniority
+- Focus on technical strengths and impact
 
 2. Core Skills
-Organize skills into professional categories such as:
-- Programming Languages
-- Frameworks & Libraries
-- Cloud & Infrastructure
-- DevOps & CI/CD
+- Programming languages
+- Backend / Frontend
+- Cloud / DevOps / CI/CD
 - Databases
-- APIs & Integration
-- Architecture & Design
-- AI/ML & Data Engineering
-- Security
-- Testing & Automation
-- Tools & Platforms
+- Architecture / System design
+- AI/ML (if relevant)
+- Security / Testing / Tools
 
-Prioritize:
-- technologies mentioned in the job posting,
-- strongest candidate skills,
-- ATS relevance.
+Prioritize job-relevant skills and strongest capabilities.
 
-3. Professional Experience
-Generate polished experience sections with:
-- strong action verbs,
-- achievement-oriented bullet points,
-- technical depth,
-- business impact,
-- scalability and architecture focus where relevant,
-- leadership and ownership emphasis when applicable.
+3. Experience
+- Polished bullet points
+- Action-oriented language
+- Focus: impact, ownership, scalability, systems, architecture
+- No invention or fabricated metrics
 
-Requirements:
-- Keep all statements factually grounded in the provided profile.
-- Do NOT invent companies, positions, or fake metrics.
-- Improve phrasing and presentation professionally.
-- Emphasize production systems, cloud, DevOps, distributed systems, AI/ML, scalability, automation, and architecture when relevant to the role.
+Each role:
+- Title + Company
+- Bullet points (clear, impactful)
 
-Each experience section should include:
-- role/title,
-- company,
-- timeframe if available,
-- concise but impactful bullet points.
-
-4. Projects Section
-If project information exists:
-- highlight technically impressive projects,
-- emphasize engineering complexity,
-- architecture,
-- scalability,
-- automation,
-- open-source contributions,
-- AI/ML or distributed systems work where applicable.
+4. Projects (if any)
+- Most relevant technical projects
+- Emphasize complexity, architecture, scalability
 
 5. Education
-Include:
-- degrees,
-- universities,
-- relevant academic focus.
+- Degrees and institutions
 
-6. Certifications & Courses
-If available:
-- include relevant certifications,
-- technical training,
-- advanced courses.
+6. Certifications (if any)
 
-7. ATS Optimization
-Naturally incorporate:
-- keywords from the job analysis,
-- important engineering terminology,
-- role-specific language,
-- cloud/platform/tool terminology.
+7. ATS Keywords
+- Extract relevant job keywords
+- Integrate naturally (no stuffing)
 
-8. Formatting Rules
-- Use clean markdown formatting.
-- Use concise professional language.
-- Avoid fluff and generic statements.
-- Avoid keyword stuffing.
-- Make the resume highly scannable.
-- Use bullet points consistently.
-- Keep strong visual structure.
-
-9. Strategic Positioning
-The resume should position the candidate as:
-- highly relevant for the target role,
-- technically strong,
-- experienced with modern engineering practices,
-- capable of ownership and delivery,
-- credible for senior-level interviews.
-
-Output Requirements:
-- Return ONLY the resume.
-- Do NOT include explanations.
-- Do NOT include commentary outside the resume.
+Rules:
+- Be concise and professional
+- Do not invent facts or metrics
+- Avoid fluff and repetition
+- Make it recruiter-ready and scannable
+- Output ONLY the resume
 """
-
     response = llm.invoke(prompt)
 
     return {"resume_draft": response}
