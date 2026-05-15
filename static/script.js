@@ -68,6 +68,9 @@ analysisForm.addEventListener('submit', async (e) => {
     const jobUrl = document.getElementById('jobUrl').value;
     const githubUsername = document.getElementById('githubUsername').value;
     const resumeFile = document.getElementById('resumeFile').files[0];
+    const provider = document.getElementById('llmProvider')?.value;
+    const apiKey = document.getElementById('apiKey')?.value;
+    const ollamaModel = document.getElementById('ollamaModel')?.value;
 
     if (!jobUrl) {
         showError('Please enter a job posting URL');
@@ -79,6 +82,9 @@ analysisForm.addEventListener('submit', async (e) => {
     formData.append('job_url', jobUrl);
     if (githubUsername) formData.append('github_username', githubUsername);
     if (resumeFile) formData.append('resume_file', resumeFile);
+    if (provider) formData.append('provider', provider);
+    if (apiKey) formData.append('api_key', apiKey);
+    if (ollamaModel) formData.append('ollama_model', ollamaModel);
 
     // Show loading state
     submitBtn.disabled = true;

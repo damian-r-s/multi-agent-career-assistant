@@ -8,6 +8,7 @@ from pathlib import Path
 from src.state import AgentState
 from src.input_handler import prepare_initial_state
 from src import graph
+from src.llm import llm
 
 app = FastAPI(title="Career Assistant API")
 
@@ -20,7 +21,7 @@ async def root():
     return FileResponse("static/index.html")
 
 @app.post("/api/analyze")
-async def analyze(job_url: str = Form(...),  github_username: str = Form(default=None), resume_file: UploadFile = File(default=None)):
+async def analyze(job_url: str = Form(...),  github_username: str = Form(default=None), resume_file: UploadFile = File(default=None), provider: str = Form(default=None), api_key: str = Form(default=None), ollama_model: str = Form(default=None)):
     """
     Analyze job posting and generate career recommendations.
     
@@ -41,13 +42,19 @@ async def analyze(job_url: str = Form(...),  github_username: str = Form(default
                 tmp.write(content.decode('utf-8'))
                 resume_path = tmp.name
         
-        # Prepare initial state
-        print(f"Processing: job_url={job_url}, github={github_username}, resume={resume_path}")
+        # Prepare initial state (include optional provider/api_key)
+        print(f"Processing: job_url={job_url}, github={github_username}, resume={resume_path}, provider={provider}")
         initial_state = prepare_initial_state(
             job_url=job_url,
             github_username=github_username,
-            resume_path=resume_path
+            resume_path=resume_path,
+            provider=provider,
+            api_key=api_key,
+            ollama_model=ollama_model
         )
+        # If a provider/api_key/ollama_model is supplied, set the LLM override for this request
+        if provider or api_key or ollama_model:
+            llm.set_override(provider, api_key, ollama_model)
         
         # Run the multi-agent graph
         print("Running analysis graph...")
@@ -70,6 +77,8 @@ async def analyze(job_url: str = Form(...),  github_username: str = Form(default
     except Exception as e:
         print(f"Error during analysis: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        llm.clear_override()
 
 @app.get("/health")
 async def health_check():

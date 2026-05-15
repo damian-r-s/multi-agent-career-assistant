@@ -101,4 +101,4 @@ Formatting requirements:
 """
     response = llm.invoke(prompt)
 
-    return {"interview_prep": response.content}
+    return {"interview_prep": response}

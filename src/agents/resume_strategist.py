@@ -130,4 +130,4 @@ Output Requirements:
 
     response = llm.invoke(prompt)
 
-    return {"resume_draft": response.content}
+    return {"resume_draft": response}

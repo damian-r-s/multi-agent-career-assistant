@@ -1,3 +1,6 @@
+from src.llm import llm
+
+
 def job_analyzer(state):
     print("Thinking - Job Analyzer")
 
@@ -113,4 +116,4 @@ Formatting requirements:
 
     response = llm.invoke(prompt)
 
-    return {"analysis": response.content}
+    return {"analysis": response}

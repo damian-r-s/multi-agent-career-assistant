@@ -147,4 +147,4 @@ Important Rules:
 
     response = llm.invoke(prompt)
 
-    return {"profile_data": response.content}
+    return {"profile_data": response}
